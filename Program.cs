@@ -6,58 +6,76 @@ using System.Threading.Tasks;
 
 namespace Tema5
 {
-    class Program
+    class Mill
     {
-        class Mill
+        private int weight;
+        private RawMaterials rawMaterial;
+        private ProductTypes productType;
+        private DateTime productionDate;
+        private DateTime expirationDate;
+        public enum EmployeeType
         {
-            private DateTime productionDate;
-            private DateTime expirationDate;
-            public enum EmployeeType
+            Worker,
+            Driver,
+            Management,
+            Salesman,
+            PR
+        }
+
+        public enum RawMaterials
+        {
+            normalGrain,
+            mediumGrain,
+            superiorGrain
+        }
+        public enum ProductTypes
+        {
+            Flour,
+            Bran
+        }
+
+        public DateTime ProductionDate
+        {
+            get
             {
-                Worker,
-                Driver,
-                Management,
-                Salesman,
-                PR
+                return this.productionDate;
             }
 
-            public enum ProductType
+        }
+        public DateTime ExpirationDate
+        {
+            get
             {
-                Flour,
-                Bran
+                return this.expirationDate;
+            }
+            set
+            {
+                this.expirationDate = value;
             }
 
-            public DateTime ProductionDate
-            {
-                get
-                {
-                    return this.productionDate;
-                }
+        }
 
-            }
-            public DateTime ExpirationDate
+        class Milling : Mill, IMilling
+        {
+            public void PreparingRawMaterialForMilling()
             {
-                get
-                {
-                    return this.expirationDate;
-                }
-                set
-                {
-                    this.expirationDate = value;
-                }
-
+                throw new NotImplementedException();
             }
-            void SetExpirationDate(ProductType tipProdus)
-            {
-
-            }
-            void Milling()
+            public virtual void MillingProcess()
             {
                 Console.WriteLine("Milling process");
             }
+            public void SetExpirationDate(ProductTypes productType)
+            {
+                Console.WriteLine(DateTime.Now);
+            }
         }
 
-        class Flour : Mill
+        interface IMilling
+        {
+            void PreparingRawMaterialForMilling();
+        }
+        class Flour : Milling
         {
             public enum FlourType
             {
@@ -66,32 +84,54 @@ namespace Tema5
                 F650,
                 F1350
             }
+            public override void MillingProcess()
+            {
+                Console.WriteLine("Milling process for flour");
+            }
         }
 
-        class Bran : Mill
+        class Bran : Milling
         {
-
+            public override void MillingProcess()
+            {
+                Console.WriteLine("Milling process for bran");
+            }
         }
 
         class BagFlour : Flour
         {
-
+            public void Bagging()
+            {
+                Console.WriteLine("Bagging flour!");
+            }
         }
 
         class BulkFlour : Flour
         {
-
+            public void LoadingBulk()
+            {
+                Console.WriteLine("Loading bulk flour!");
+            }
         }
 
         class BagBran : Bran
         {
-
+            public void Bagging()
+            {
+                Console.WriteLine("Bagging bran!");
+            }
         }
 
         class BulkBran : Bran
         {
-
+            public void LoadingBulk()
+            {
+                Console.WriteLine("Loading bulk bran!");
+            }
         }
+    }
+    class Program
+    {
         static void Main(string[] args)
         {
 
