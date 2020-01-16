@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Tema5
 {
-    class Mill
+    public class Mill
     {
         private int weight;
         private RawMaterials rawMaterial;
@@ -55,11 +55,16 @@ namespace Tema5
 
         }
 
-        class Milling : Mill, IMilling
+        public abstract class Milling : Mill, IMilling
         {
             public void PreparingRawMaterialForMilling()
             {
-                throw new NotImplementedException();
+                Console.WriteLine("Preparing raw material for milling process!");
+            }
+
+            public void PreparingRawMaterialForMilling(int weight)
+            {
+                Console.WriteLine("Preparing an exact weight of raw material for milling process!");
             }
             public virtual void MillingProcess()
             {
@@ -71,11 +76,11 @@ namespace Tema5
             }
         }
 
-        interface IMilling
+        public interface IMilling
         {
             void PreparingRawMaterialForMilling();
         }
-        class Flour : Milling
+        public class Flour : Milling
         {
             public enum FlourType
             {
@@ -90,7 +95,7 @@ namespace Tema5
             }
         }
 
-        class Bran : Milling
+        public class Bran : Milling
         {
             public override void MillingProcess()
             {
@@ -98,7 +103,7 @@ namespace Tema5
             }
         }
 
-        class BagFlour : Flour
+        public class BagFlour : Flour
         {
             public void Bagging()
             {
@@ -106,7 +111,7 @@ namespace Tema5
             }
         }
 
-        class BulkFlour : Flour
+        public class BulkFlour : Flour
         {
             public void LoadingBulk()
             {
@@ -114,7 +119,7 @@ namespace Tema5
             }
         }
 
-        class BagBran : Bran
+        public class BagBran : Bran
         {
             public void Bagging()
             {
@@ -122,7 +127,7 @@ namespace Tema5
             }
         }
 
-        class BulkBran : Bran
+        public class BulkBran : Bran
         {
             public void LoadingBulk()
             {
